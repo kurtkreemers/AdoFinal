@@ -39,13 +39,13 @@ namespace Videotheek
             toevoegAct = false;
 
         }
-        Film nieuweFilm = new Film();
+       
         private void btToevoegbevestig_Click(object sender, RoutedEventArgs e)
         {
             
             if (!toevoegAct)
-            {
-                layoutInstel();
+            { Film nieuweFilm = new Film();
+                layoutActive();
                 toevoegAct = true;
                 filmsOb.Add(nieuweFilm);
                 lbFilms.SelectedItem = nieuweFilm;
@@ -90,6 +90,9 @@ namespace Videotheek
         }
         private void btVerhuur_Click(object sender, RoutedEventArgs e)
         {
+            Binding b = BindingOperations.GetBinding(inVoorraadTextBox, TextBox.TextProperty);
+            b.ValidationRules.Clear();
+
             int inVoorraad = Convert.ToInt32(inVoorraadTextBox.Text);
             int uitVoorraad = Convert.ToInt32(uitVoorraadTextBox.Text);
             int totaalVerh = Convert.ToInt32(totaalVerhuurdTextBox.Text);
@@ -101,6 +104,9 @@ namespace Videotheek
             }
             else
                 MessageBox.Show("Alle films zijn verhuurd!!!", "Verhuur", MessageBoxButton.OK, MessageBoxImage.Asterisk);
+
+            b.ValidationRules.Add(new GetalGroterDanNulRule());
+            b.ValidationRules.Add(new IntGetalIngaveRule());
         }
 
         private void btAllesOpslaan_Click(object sender, RoutedEventArgs e)
@@ -165,7 +171,7 @@ namespace Videotheek
             lbFilms.SelectedIndex = 0;
            
         }
-        private void layoutInstel()
+        private void layoutActive()
         {
             btToevoegbevestig.Content = "Bevestigen";
             btVerwijdAnnuleer.Content = "Annuleren";

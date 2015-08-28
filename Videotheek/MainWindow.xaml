@@ -50,6 +50,7 @@
                     <TextBox.Text>
                         <Binding Path="InVoorraad" Mode="TwoWay"  NotifyOnValidationError="True" ValidatesOnExceptions="True" UpdateSourceTrigger="PropertyChanged" >
                             <Binding.ValidationRules>
+                                
                                 <local:IntGetalIngaveRule/>
                                 <local:GetalGroterDanNulRule/>
                             </Binding.ValidationRules>
